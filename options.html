@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>ตั้งค่าการเข้าสู่ระบบ NRIIS</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            /* สีน้ำเงิน Royal Blue */
+            --primary-hover: #1d4ed8;
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-color: #1f2937;
+            --text-light: #6b7280;
+            --border-color: #d1d5db;
+            --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+        }
+
+        body {
+            font-family: 'Noto Sans Thai', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h2 {
+            margin: 0 0 8px 0;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.925rem;
+            color: #374151;
+        }
+
+        /* Wrapper สำหรับ Input เพื่อจัดตำแหน่งปุ่มตา */
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.75rem;
+            padding-right: 40px;
+            /* เว้นที่ด้านขวาไว้ใส่ปุ่มตา */
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            background-color: #fff;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        /* ปุ่มลูกตา (Show/Hide Password) */
+        .eye-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            padding: 4px;
+            cursor: pointer;
+            color: #9ca3af;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: color 0.2s;
+        }
+
+        .eye-btn:hover {
+            color: #4b5563;
+            background-color: #f3f4f6;
+        }
+
+        .eye-btn:focus {
+            outline: none;
+        }
+
+        /* Class สำหรับซ่อนไอคอน */
+        .hidden {
+            display: none;
+        }
+
+        button#saveBtn {
+            width: 100%;
+            padding: 0.875rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-top: 0.5rem;
+        }
+
+        button#saveBtn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button#saveBtn:active {
+            transform: translateY(1px);
+        }
+
+        .status-container {
+            margin-top: 1.5rem;
+            text-align: center;
+            min-height: 24px;
+        }
+
+        #saved {
+            color: #059669;
+            /* สีเขียว */
+            font-size: 0.9rem;
+            font-weight: 500;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        #saved.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h2>ตั้งค่าบัญชี NRIIS</h2>
+            <p class="subtitle">ระบบ Auto-Login เพื่อตรวจสอบสถานะทุน</p>
+        </header>
+
+        <div class="form-group">
+            <label for="username">ชื่อผู้ใช้ (Username)</label>
+            <div class="input-wrapper">
+                <input id="username" type="text" placeholder="ระบุชื่อผู้ใช้" autocomplete="off"
+                    style="padding-right: 0.75rem;" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">รหัสผ่าน (Password)</label>
+            <div class="input-wrapper">
+                <input id="password" type="password" placeholder="ระบุรหัสผ่าน" autocomplete="off" />
+
+                <button type="button" id="togglePassword" class="eye-btn" tabindex="-1" title="แสดง/ซ่อนรหัสผ่าน">
+                    <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+
+                    <svg id="eyeOffIcon" class="hidden" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path
+                            d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24">
+                        </path>
+                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <button id="saveBtn">บันทึกข้อมูล</button>
+
+        <div class="status-container">
+            <span id="saved">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                บันทึกข้อมูลเรียบร้อยแล้ว
+            </span>
+        </div>
+    </div>
+
+    <script src="js/options.js"></script>
+</body>
+
+</html>

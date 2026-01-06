@@ -1,0 +1,63 @@
+﻿{
+  "manifest_version": 3,
+  "name": "autoNRIISOnProposalListAgree_Omaga03",
+  "version": "0.0.0.1",
+  "description": "nriis.go.th--nr_ProposalListAgree (ตรวจสอบ/รับรองทุนภายนอก)",
+
+  "icons": {
+    "16": "/js/images/nriis-logo.png",
+    "32": "/js/images/nriis-logo.png",
+    "48": "/js/images/nriis-logo.png",
+    "128": "/js/images/nriis-logo.png"
+  },
+
+  "action": {
+    "default_icon": {
+      "16": "/js/images/nriis-logo.png",
+      "32": "/js/images/nriis-logo.png",
+      "48": "/js/images/nriis-logo.png",
+      "128": "/js/images/nriis-logo.png"
+    },
+    "default_title": "NRIIS (ตรวจสอบ/รับรองทุนภายนอก)",
+    "default_popup": "popup.html"
+  },
+
+  "background": {
+    "service_worker": "/js/background.js"
+  },
+
+  "permissions": [
+    "activeTab",
+    "cookies",
+    "alarms",
+    "scripting",
+    "tabs",
+    "windows",
+    "notifications",
+    "storage",
+    "management"
+  ],
+
+  "host_permissions": [
+    "https://nriis.go.th/*"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["https://nriis.go.th/*"],
+      "js": ["js/autoNRIISOnProposalListAgree.js"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "/js/images/nriis-logo.png"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  
+  "options_page": "options.html"
+}
